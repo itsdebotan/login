@@ -12,9 +12,7 @@
     nav a.active{color:#fff;text-decoration:underline}
     main{padding:28px 20px;max-width:980px;margin:0 auto}
     .btn{background:var(--accent);border:none;padding:10px 12px;border-radius:10px;font-weight:800;cursor:pointer;color:#1b1205}
-    .card{margin-top:16px;border:1px solid var(--line);border-radius:16px;padding:16px;background:rgba(255,255,255,.03)}
     p{margin:0;color:var(--muted);line-height:1.6}
-    a{color:var(--accent);text-decoration:none}
   </style>
 </head>
 <body>
@@ -35,21 +33,11 @@
   <main>
     <h1 style="margin:0 0 8px">Willkommen</h1>
     <p>Du bist eingeloggt. Von hier aus kannst du alles sehen.</p>
-
-    <div class="card">
-      <h3 style="margin:0 0 8px">Quick Links</h3>
-      <p>
-        <a href="about.html">→ About</a><br/>
-        <a href="community.html">→ Community</a><br/>
-        <a href="glaube.html">→ Unser Glaube</a><br/>
-        <a href="events.html">→ Events</a>
-      </p>
-    </div>
   </main>
 
   <script src="app.js"></script>
   <script>
-    requireAuth();
+    requireAuth();   // 🔒 Ohne Login → zurück zur index.html
   </script>
 </body>
 </html>
