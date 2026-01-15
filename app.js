@@ -2,12 +2,12 @@
 // 🔧 KONFIGURATION
 // ==============================
 const CONFIG = {
-  password: "boe2024",       // <- Passwort hier ändern
-  landingPage: "home.html"   // Seite nach Login
+  password: "boe2024",
+  landingPage: "home.html"
 };
 
 // ==============================
-// ✅ LOGIN-FUNKTION
+// ✅ LOGIN
 // ==============================
 function handleLoginForm() {
   const pw = document.getElementById("pw");
@@ -21,7 +21,7 @@ function handleLoginForm() {
 
     if ((pw.value || "").trim() === CONFIG.password) {
       ok.style.display = "block";
-      setTimeout(() => window.location.href = CONFIG.landingPage, 350);
+      setTimeout(() => window.location.href = CONFIG.landingPage, 300);
     } else {
       err.style.display = "block";
       pw.focus();
@@ -36,19 +36,18 @@ function handleLoginForm() {
 }
 
 // ==============================
-// 🚪 LOGOUT (einfach zurück zum Login)
+// 🔒 SCHUTZ FÜR SEITEN
 // ==============================
-function logout() {
-  window.location.href = "index.html";
-}
-
-// ==============================
-// 🔒 SCHUTZ FÜR SEITEN (optional)
-// ==============================
-// Wenn jemand direkt auf home.html geht → zurück zum Login
 function requireAuth() {
-  // KEIN Speichern → also immer zurück zum Login, wenn nicht über Login gekommen
+  // Wenn nicht über die Login-Seite gekommen → zurück zum Login
   if (!document.referrer.includes("index.html")) {
     window.location.href = "index.html";
   }
+}
+
+// ==============================
+// 🚪 LOGOUT
+// ==============================
+function logout() {
+  window.location.href = "index.html";
 }
