@@ -116,15 +116,15 @@
     </div>
   </div>
 
-  <!-- ✅ NEU: app.js einbinden -->
+  <!-- ✅ Login-Logik auslagern -->
   <script src="app.js"></script>
   <script>
-    // ✅ Wenn schon eingeloggt, direkt ins interne Menü
+    // Wenn bereits eingeloggt → direkt ins interne Menü
     if (sessionStorage.getItem("boe_auth_v1") === "1") {
       window.location.href = "home.html";
     }
 
-    // ✅ Login-Formular aktivieren (Passwort steht in app.js)
+    // Login-Formular aktivieren (Passwort steht in app.js)
     handleLoginForm();
   </script>
 </body>
