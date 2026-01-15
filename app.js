@@ -1,59 +1,55 @@
-// ==============================
-// 🔧 KONFIGURATION
-// ==============================
-const CONFIG = {
-  password: "boe2024",       // <- Passwort hier ändern
-  landingPage: "home.html",  // Seite nach Login
-  sessionKey: "boe_auth_v1", // Token-Key
-};
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BoE • Start</title>
+  <style>
+    :root{--bg:#0b0b0c;--text:#f2f2f2;--muted:rgba(255,255,255,.65);--accent:#d9b25f;--line:rgba(255,255,255,.08)}
+    body{margin:0;font-family:system-ui,Arial;background:var(--bg);color:var(--text)}
+    header{display:flex;gap:14px;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(11,11,12,.9);backdrop-filter:blur(8px)}
+    nav a{color:var(--accent);text-decoration:none;margin-right:12px}
+    nav a.active{color:#fff;text-decoration:underline}
+    main{padding:28px 20px;max-width:980px;margin:0 auto}
+    .btn{background:var(--accent);border:none;padding:10px 12px;border-radius:10px;font-weight:800;cursor:pointer;color:#1b1205}
+    .card{margin-top:16px;border:1px solid var(--line);border-radius:16px;padding:16px;background:rgba(255,255,255,.03)}
+    p{margin:0;color:var(--muted);line-height:1.6}
+    a{color:var(--accent);text-decoration:none}
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Brotherhood of Eden</strong>
+    <nav>
+      <a class="active" href="home.html">Start</a>
+      <a href="about.html">About</a>
+      <a href="community.html">Community</a>
+      <a href="glaube.html">Unser Glaube</a>
+      <a href="events.html">Events</a>
+    </nav>
+    <div style="margin-left:auto">
+      <button class="btn" onclick="logout()">Logout</button>
+    </div>
+  </header>
 
-// ==============================
-// ✅ AUTH HELPERS
-// ==============================
-function isAuthed() {
-  return sessionStorage.getItem(CONFIG.sessionKey) === "1";
-}
+  <main>
+    <h1 style="margin:0 0 8px">Willkommen</h1>
+    <p>Du bist eingeloggt. Von hier aus kannst du alles sehen.</p>
 
-function setAuthed() {
-  sessionStorage.setItem(CONFIG.sessionKey, "1");
-}
+    <div class="card">
+      <h3 style="margin:0 0 8px">Quick Links</h3>
+      <p>
+        <a href="about.html">→ About</a><br/>
+        <a href="community.html">→ Community</a><br/>
+        <a href="glaube.html">→ Unser Glaube</a><br/>
+        <a href="events.html">→ Events</a>
+      </p>
+    </div>
+  </main>
 
-function logout() {
-  sessionStorage.removeItem(CONFIG.sessionKey);
-  window.location.href = "index.html";
-}
-
-// Auf geschützten Seiten aufrufen:
-function requireAuth() {
-  if (!isAuthed()) {
-    window.location.href = "index.html";
-  }
-}
-
-// Auf der Login-Seite aufrufen:
-function handleLoginForm() {
-  const pw = document.getElementById("pw");
-  const btn = document.getElementById("btn");
-  const err = document.getElementById("err");
-  const ok = document.getElementById("ok");
-
-  function go() {
-    err.style.display = "none";
-    ok.style.display = "none";
-
-    if ((pw.value || "").trim() === CONFIG.password) {
-      setAuthed();
-      ok.style.display = "block";
-      setTimeout(() => window.location.href = CONFIG.landingPage, 350);
-    } else {
-      err.style.display = "block";
-      pw.focus();
-      pw.select();
-    }
-  }
-
-  btn.addEventListener("click", go);
-  pw.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") go();
-  });
-}
+  <script src="app.js"></script>
+  <script>
+    requireAuth(); // 🔒 schützt diese Seite
+  </script>
+</body>
+</html>
