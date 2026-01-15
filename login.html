@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BoE • Login</title>
+  <style>
+    :root { --bg:#0b0b0c; --card:#141416; --text:#f2f2f2; --muted:#b6b6b6; --accent:#d9b25f; }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; display:grid; place-items:center;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+      background: radial-gradient(1000px 600px at 50% 10%, rgba(217,178,95,.25), transparent 60%),
+                  linear-gradient(180deg, #0b0b0c, #050506);
+      color:var(--text);
+      padding:24px;
+    }
+    .wrap{width:min(520px, 100%);}
+    .brand{display:flex; align-items:center; gap:12px; margin-bottom:14px;}
+    .logo{
+      width:42px; height:42px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(217,178,95,.95), rgba(217,178,95,.35));
+      box-shadow: 0 12px 30px rgba(217,178,95,.18);
+    }
+    .brand h1{font-size:18px; margin:0; letter-spacing:.5px;}
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:22px;
+      padding:26px;
+      box-shadow: 0 20px 80px rgba(0,0,0,.55);
+      backdrop-filter: blur(10px);
+    }
+    h2{margin:0 0 8px; font-size:26px;}
+    p{margin:0 0 18px; color:var(--muted); line-height:1.5;}
+    .row{display:flex; gap:10px; flex-wrap:wrap;}
+    input{
+      flex:1;
+      min-width:220px;
+      padding:14px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(10,10,12,.55);
+      color:var(--text);
+      outline:none;
+    }
+    input:focus{border-color: rgba(217,178,95,.6); box-shadow: 0 0 0 4px rgba(217,178,95,.15);}
+    button{
+      padding:14px 16px;
+      border-radius:14px;
+      border:1px solid rgba(217,178,95,.35);
+      background: linear-gradient(135deg, rgba(217,178,95,.95), rgba(217,178,95,.55));
+      color:#1b1205;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow: 0 12px 30px rgba(217,178,95,.20);
+    }
+    button:hover{filter:brightness(1.05)}
+    .hint{font-size:12px; color:rgba(255,255,255,.55); margin-top:14px;}
+    .err{margin-top:12px; color:#ff6b6b; font-weight:600; display:none;}
+    .ok{margin-top:12px; color:#7CFFB2; font-weight:600; display:none;}
+    .footer{margin-top:16px; text-align:center; font-size:12px; color:rgba(255,255,255,.45);}
+    a{color:var(--accent); text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <h1>Brotherhood of Eden</h1>
+    </div>
+
+    <div class="card">
+      <h2>Geschützter Bereich</h2>
+      <p>Bitte Passwort eingeben, um fortzufahren.</p>
+
+      <div class="row">
+        <input id="pw" type="password" placeholder="Passwort" autocomplete="current-password" />
+        <button id="btn">Weiter</button>
+      </div>
+
+      <div id="err" class="err">Falsches Passwort.</div>
+      <div id="ok" class="ok">Passt — du wirst weitergeleitet…</div>
+
+      <div class="hint">
+        Hinweis: Dies ist eine einfache Zugangshürde (kein Hochsicherheits-Login).
+      </div>
+    </div>
+
+    <div class="footer">© BoE • <a href="https://www.boeyouth.ch/">boeyouth.ch</a></div>
+  </div>
+
+  <script>
+    // ✅ HIER EINSTELLEN:
+    const PASSWORD = "boe2024"; // <- Passwort ändern
+    const REDIRECT_TO = "https://sites.google.com/view/brotherhoodofeden?usp=sharing"; // <- Zielseite
+
+    const pw = document.getElementById("pw");
+    const btn = document.getElementById("btn");
+    const err = document.getElementById("err");
+    const ok = document.getElementById("ok");
+
+    function go() {
+      err.style.display = "none";
+      ok.style.display = "none";
+
+      if (pw.value === PASSWORD) {
+        ok.style.display = "block";
+        // kleine Verzögerung für „epischen“ Effekt
+        setTimeout(() => window.location.href = REDIRECT_TO, 450);
+      } else {
+        err.style.display = "block";
+        pw.focus();
+        pw.select();
+      }
+    }
+
+    btn.addEventListener("click", go);
+    pw.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") go();
+    });
+  </script>
+</body>
+</html>
