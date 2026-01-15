@@ -116,46 +116,16 @@
     </div>
   </div>
 
+  <!-- ✅ NEU: app.js einbinden -->
+  <script src="app.js"></script>
   <script>
-    // ==============================
-    // 🔧 KONFIGURATION
-    // ==============================
-
-    // Passwort für den Zugang:
-    const PASSWORD = "boe2024";   // <- Hier ändern, wenn du willst
-
-    // Zielseite nach erfolgreichem Login:
-    const REDIRECT_TO = "https://sites.google.com/view/brotherhoodofeden?usp=sharing";
-
-    // ==============================
-    // ⚙️ LOGIK
-    // ==============================
-
-    const pw = document.getElementById("pw");
-    const btn = document.getElementById("btn");
-    const err = document.getElementById("err");
-    const ok = document.getElementById("ok");
-
-    function go() {
-      err.style.display = "none";
-      ok.style.display = "none";
-
-      if (pw.value === PASSWORD) {
-        ok.style.display = "block";
-        setTimeout(() => {
-          window.location.href = REDIRECT_TO;
-        }, 450);
-      } else {
-        err.style.display = "block";
-        pw.focus();
-        pw.select();
-      }
+    // ✅ Wenn schon eingeloggt, direkt ins interne Menü
+    if (sessionStorage.getItem("boe_auth_v1") === "1") {
+      window.location.href = "home.html";
     }
 
-    btn.addEventListener("click", go);
-    pw.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") go();
-    });
+    // ✅ Login-Formular aktivieren (Passwort steht in app.js)
+    handleLoginForm();
   </script>
 </body>
 </html>
