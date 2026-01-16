@@ -4,7 +4,7 @@
 const CONFIG = {
   password: "boe2024",
   landingPage: "home.html",
-  sessionKey: "boe_auth"
+  sessionKey: "boe_auth_v1",
 };
 
 // ==============================
@@ -21,11 +21,9 @@ function handleLoginForm() {
     ok.style.display = "none";
 
     if ((pw.value || "").trim() === CONFIG.password) {
-      sessionStorage.setItem(CONFIG.sessionKey, "1");
+      sessionStorage.setItem(CONFIG.sessionKey, "1"); // ✅ merkt Login nur in diesem Tab
       ok.style.display = "block";
-      setTimeout(() => {
-        window.location.href = CONFIG.landingPage;
-      }, 300);
+      setTimeout(() => (window.location.href = CONFIG.landingPage), 300);
     } else {
       err.style.display = "block";
       pw.focus();
