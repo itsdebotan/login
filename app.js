@@ -3,7 +3,8 @@
 // ==============================
 const CONFIG = {
   password: "boe2024",
-  landingPage: "home.html"
+  landingPage: "home.html",
+  sessionKey: "boe_auth"
 };
 
 // ==============================
@@ -20,8 +21,11 @@ function handleLoginForm() {
     ok.style.display = "none";
 
     if ((pw.value || "").trim() === CONFIG.password) {
+      sessionStorage.setItem(CONFIG.sessionKey, "1");
       ok.style.display = "block";
-      setTimeout(() => window.location.href = CONFIG.landingPage, 300);
+      setTimeout(() => {
+        window.location.href = CONFIG.landingPage;
+      }, 300);
     } else {
       err.style.display = "block";
       pw.focus();
@@ -39,8 +43,7 @@ function handleLoginForm() {
 // 🔒 SCHUTZ FÜR SEITEN
 // ==============================
 function requireAuth() {
-  // Wenn nicht über die Login-Seite gekommen → zurück zum Login
-  if (!document.referrer.includes("index.html")) {
+  if (sessionStorage.getItem(CONFIG.sessionKey) !== "1") {
     window.location.href = "index.html";
   }
 }
@@ -49,5 +52,6 @@ function requireAuth() {
 // 🚪 LOGOUT
 // ==============================
 function logout() {
+  sessionStorage.removeItem(CONFIG.sessionKey);
   window.location.href = "index.html";
 }
